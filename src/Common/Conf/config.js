@@ -10,15 +10,15 @@ export default {
     app_description: 'thinknode,node.js mvc framework',
     app_port: 3000,
     app_group_list: ['Admin', 'Home'], //分组列表
-    default_group: 'Home',//默认分组
+    default_group: 'Admin',//默认分组
 
     /**数据库配置**/
     db_type: 'mysql', // 数据库类型
     db_host: '127.0.0.1', // 服务器地址
     db_port: '3306', // 端口
-    db_name: '', // 数据库名
-    db_user: '', // 用户名
-    db_pwd: '', // 密码
+    db_name: 'zhuanjiasay', // 数据库名
+    db_user: 'root', // 用户名
+    db_pwd: 'root', // 密码
     db_prefix: '', // 数据库表前缀
     db_nums_per_page: 20, //查询分页每页显示的条数
     db_ext_config: {safe: true, db_log_sql: true, db_pool_size: 10}, //数据库连接时候额外的参数
