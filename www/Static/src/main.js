@@ -15,7 +15,7 @@ new Vue({
   template: '<App/>',
   components: { App },
   data: {
-    theme: 'purple',
+    theme: 'teal',
     appName: '砖家说',
     logoUrl: 'http://www.uugai.com//logo/ziti/20170226/148811425089902.png',
     requestUrl: {

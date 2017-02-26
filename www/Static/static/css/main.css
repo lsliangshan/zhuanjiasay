@@ -366,3 +366,10 @@ body {
 .bg-black {
   background-color: #424242!important;
 }
+
+.transition-all {
+  -webkit-transition: all .3s cubic-bezier(0.215,.61,.355,1) !important;
+  -moz-transition: all .3s cubic-bezier(0.215,.61,.355,1) !important;
+  -o-transition: all .3s cubic-bezier(0.215,.61,.355,1) !important;
+  transition: all .3s cubic-bezier(0.215,.61,.355,1) !important;
+}

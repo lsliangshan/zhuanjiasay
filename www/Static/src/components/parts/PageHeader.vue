@@ -8,9 +8,13 @@
 
         <span style="flex: 1"></span>
 
-        <md-button class="md-icon-button">
-          <md-icon>search</md-icon>
-        </md-button>
+        <div @mouseover="showSearch" @mouseout="hideSearch">
+          <md-button class="md-icon-button">
+            <md-icon>search</md-icon>
+          </md-button>
+
+          <input class="header-search transition-all" placeholder="搜点啥" v-model="searchText" :class="{'shown': showSearchBox}"/>
+        </div>
 
         <md-button class="md-icon-button">
           <md-icon>view_module</md-icon>
@@ -20,10 +24,16 @@
       <div class="md-toolbar-container">
         <h2 class="md-title" v-text="appName"></h2>
 
-        <md-button class="md-fab md-mini md-primary" md-theme="red">
-          <md-icon>add</md-icon>
-        </md-button>
+        <div class="btn-main transition-all" @click="test">
+          <md-button class="md-fab md-mini md-primary" :md-theme="theme">
+            <md-icon>add</md-icon>
+          </md-button>
+        </div>
       </div>
+
+      <transition @enter="testEnter" @leave="testLeave" :css="false">
+        <div id="testTarget" :class="'bg-' + theme" v-show="testTargetShown"></div>
+      </transition>
     </md-whiteframe>
 
     <md-sidenav :md-theme="theme" class="md-left" ref="sidenav">
@@ -82,7 +92,7 @@
     </md-sidenav>
   </div>
 </template>
-<style scoped>
+<style scoped lang="scss">
   .header-container {
     width: 100%;
     height: 128px;
@@ -90,6 +100,40 @@
     /*display: flex;*/
     /*align-items: center;*/
     /*justify-content: center;*/
+    .header-search {
+      width: 0;
+      height: 30px;
+      background-color: transparent;
+      color: #ffffff;
+      border: none;
+      border-bottom: 1px solid #e5e5e5;
+      font-size: 14px;
+      &.shown {
+        width: 180px;
+      }
+    }
+    .btn-main {
+      position: absolute;
+      margin: 0;
+      bottom: -28px;
+      left: 16px;
+      width: 58px;
+      height: 58px;
+      button {
+        left: 0!important;
+        bottom: 0!important;
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+  #testTarget {
+    position: absolute;
+    left: 50px;
+    top: 200px;
+    width: 80px;
+    height: 80px;
+    background-color: #ecb0ff;
   }
   .complete-example {
     height: 540px;
@@ -116,13 +160,48 @@
   }
 </style>
 <script>
+  const Velocity = require('../../../static/css/velocity.min.js')
   export default {
     name: 'pageHeader',
     data () {
       return {
         appName: this.$root.appName,
         logoUrl: this.$root.logoUrl,
-        theme: this.$root.theme
+        theme: this.$root.theme,
+        showSearchBox: false,
+        searchText: '',
+        testTargetShown: false
+      }
+    },
+    methods: {
+      toggleSearch: function () {
+        this.showSearchBox = !this.showSearchBox
+      },
+      showSearch: function () {
+        this.showSearchBox = true
+      },
+      hideSearch: function () {
+        if (this.searchText === '') {
+          this.showSearchBox = false
+        }
+      },
+      testEnter: function (el, done) {
+        Velocity(el, {
+          left: 0,
+          position: 'absolute',
+          top: 0
+        }, { duration: 400, delay: 100 })
+        Velocity(el, {
+          backgroundColor: 'red',
+          width: '375px',
+          height: '667px'
+        }, { complete: done })
+      },
+      testLeave: function (el, done) {
+
+      },
+      test: function () {
+        this.testTargetShown = !this.testTargetShown
       }
     }
   }
